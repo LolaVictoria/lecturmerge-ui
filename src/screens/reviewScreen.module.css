@@ -1,0 +1,475 @@
+.shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top bar */
+.topbar {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wordmark {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+
+.topbarLabel {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progress {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.saveBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.saveBtn:hover:not(:disabled) { opacity: 0.85; }
+.saveBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.savedBtn { background: #22C55E; }
+
+/* Body layout */
+.body {
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left sidebar */
+.sidebar {
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 0;
+}
+
+.sidebarLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 16px 12px;
+}
+
+.sectionBtn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+  color: var(--text-muted);
+}
+
+.sectionBtn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.sectionActive {
+  background: var(--surface-hover);
+  border-left-color: var(--accent);
+  color: var(--text);
+}
+
+.sectionConfirmed {
+  opacity: 0.6;
+}
+
+.sectionBtnHeading {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sectionBtnMeta {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 10px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-family: var(--font-mono);
+}
+
+.confirmedBadge {
+  font-size: 10px;
+  background: #1A2E1A;
+  color: #22C55E;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* Main content */
+.main {
+  overflow-y: auto;
+  padding: 32px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.sectionPage {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.confirmBtn {
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.confirmBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.confirmedBtn {
+  border-color: #22C55E;
+  color: #22C55E;
+}
+
+.pdfText {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #C0C0C0;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Items blocks */
+.itemsBlock {
+  margin-bottom: 24px;
+}
+
+.blockLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* Speech items */
+.speechItem {
+  background: var(--accent-dim);
+  border: 1px solid var(--speech-border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  cursor: grab;
+  transition: opacity 0.15s;
+  position: relative;
+}
+
+.speechItem:active { cursor: grabbing; }
+
+.speechText {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #A8B4FF;
+  margin-bottom: 10px;
+}
+
+.speechMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dragHint {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 9px;
+  color: var(--text-muted);
+  opacity: 0.5;
+  letter-spacing: 0.3px;
+}
+
+/* Audio player */
+.audioPlayer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playBtn {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.playBtn:hover { opacity: 0.85; }
+.playing { background: #3B4FD4; }
+
+.timestamp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Confidence bar */
+.confBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  max-width: 120px;
+}
+
+.confFill {
+  height: 2px;
+  border-radius: 1px;
+  flex: 1;
+  transition: width 0.3s;
+}
+
+.confLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* Note items */
+.noteItem {
+  background: var(--note);
+  border: 1px solid var(--note-border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.noteText {
+  font-size: 13px;
+  line-height: 1.6;
+  flex: 1;
+  color: #A8D8A8;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.removeBtn:hover { color: var(--danger-text); }
+
+/* Add note */
+.addNote {
+  margin-top: 8px;
+}
+
+.noteInputRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.noteInput {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  padding: 10px 12px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s;
+  line-height: 1.5;
+}
+
+.noteInput:focus { border-color: var(--note-border); }
+.noteInput::placeholder { color: var(--text-muted); }
+
+.addNoteBtn {
+  background: var(--note);
+  border: 1px solid var(--note-border);
+  color: #A8D8A8;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.addNoteBtn:hover:not(:disabled) { opacity: 0.8; }
+.addNoteBtn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Right panel */
+.rightPanel {
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 0;
+}
+
+.unmatchedHint {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 14px 12px;
+  line-height: 1.5;
+}
+
+.chunkCard {
+  margin: 0 10px 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  cursor: grab;
+  transition: border-color 0.15s;
+  position: relative;
+}
+
+.chunkCard:hover { border-color: var(--accent); }
+.chunkCard:active { cursor: grabbing; }
+
+.chunkPlaced {
+  opacity: 0.4;
+}
+
+.chunkText {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.chunkTime {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.chunkPlacedLabel {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 9px;
+  color: #22C55E;
+  letter-spacing: 0.3px;
+}
+
+.removeChunkBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.removeChunkBtn:hover {
+  color: var(--danger-text);
+}
