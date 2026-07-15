@@ -1,75 +1,53 @@
-# React + TypeScript + Vite
+# LectureMerge — UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React TypeScript frontend for LectureMerge, a tool that merges a lecturer's spoken explanations into the right sections of a course PDF.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Provides a two-screen interface:
 
-## React Compiler
+1. **Upload screen** — student uploads a lecture audio recording and course PDF, the app handles transcription and semantic matching automatically
+2. **Review screen** — split-screen interface showing PDF sections on the left, matched speech chunks in the center, and all transcript chunks on the right. Students can play audio for each chunk, remove irrelevant matches, drag chunks to reassign them to different sections, and add their own typed notes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+When satisfied, the student downloads a merged HTML document with the original PDF content and the lecturer's spoken elaborations inserted under the right sections, visually distinguished by color.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 18** + **TypeScript** — UI framework
+- **Vite** — build tool
+- **CSS Modules** — scoped component styling
+- **Axios** — API communication
+- **HTML5 Drag and Drop API** — chunk reassignment
+- **Web Audio API** — inline audio playback per chunk
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Design
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Minimal dark UI inspired by tools like Linear and Armin — tight spacing, monospace accents for machine-generated content (transcript text), high contrast, no visual noise.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Setup
 
+```bash
+git clone https://github.com/LolaVictoria/lecturmerge-ui.git
+cd lecturmerge-ui
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Requires the LectureMerge backend running at `http://127.0.0.1:8000`.
+See [lecturmerge-api](https://github.com/LolaVictoria/lecturemerger-api) for backend setup.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Screens
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Upload Screen
+- Audio file input (mp3, wav, m4a, webm, ogg)
+- PDF file input
+- Optional lecture title
+- Real-time status updates through the pipeline (uploading → transcribing → parsing → matching)
 
-```
+### Review Screen
+- Left sidebar: all PDF sections with speech/note counts
+- Center panel: active section with PDF text, matched speech chunks (playable, removable, draggable), student notes
+- Right panel: all transcript chunks, draggable to any section
+- Confidence score bar on each chunk (colour-coded: indigo = high, amber = medium, red = low)
+- Confirm button per section to track review progress
+- Download button generates merged HTML document
