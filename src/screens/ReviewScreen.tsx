@@ -7,7 +7,7 @@ import type {
   NoteInputMap,
   ConfirmedMap
 } from "../types"
-import styles from "./ReviewScreen.module.css"
+import styles from "./reviewScreen.module.css"
 
 //const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
 
