@@ -1,53 +1,223 @@
-# LectureMerge — UI
+# LectureMerge UI
 
-React TypeScript frontend for LectureMerge, a tool that merges a lecturer's spoken explanations into the right sections of a course PDF.
+Frontend for **LectureMerge**, an application that automatically combines lecture recordings with course slides to produce richer lecture notes.
 
-## What it does
+The interface guides students through uploading lecture material, reviewing AI-generated matches, and producing merged notes.
 
-Provides a two-screen interface:
+---
 
-1. **Upload screen** — student uploads a lecture audio recording and course PDF, the app handles transcription and semantic matching automatically
-2. **Review screen** — split-screen interface showing PDF sections on the left, matched speech chunks in the center, and all transcript chunks on the right. Students can play audio for each chunk, remove irrelevant matches, drag chunks to reassign them to different sections, and add their own typed notes
+# Features
 
-When satisfied, the student downloads a merged HTML document with the original PDF content and the lecturer's spoken elaborations inserted under the right sections, visually distinguished by color.
+- Upload lecture recordings
+- Upload lecture PDFs
+- Automatic processing pipeline
+- Interactive review interface
+- Drag-and-drop transcript reassignment
+- Confidence score visualization
+- Inline audio playback
+- Student notes
+- Download merged lecture notes
 
-## Tech Stack
+---
 
-- **React 18** + **TypeScript** — UI framework
-- **Vite** — build tool
-- **CSS Modules** — scoped component styling
-- **Axios** — API communication
-- **HTML5 Drag and Drop API** — chunk reassignment
-- **Web Audio API** — inline audio playback per chunk
+# Motivation
 
-## Design
+Lecture recordings contain valuable explanations that rarely appear on lecture slides.
 
-Minimal dark UI inspired by tools like Linear and Armin — tight spacing, monospace accents for machine-generated content (transcript text), high contrast, no visual noise.
+LectureMerge helps students by automatically attaching spoken explanations to the relevant sections of the course material while still allowing complete manual review.
 
-## Setup
+---
+
+# Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| React 18 | UI |
+| TypeScript | Type safety |
+| Vite | Build tool |
+| Axios | API requests |
+| CSS Modules | Component styling |
+| HTML Drag & Drop API | Chunk reassignment |
+| Web Audio API | Audio playback |
+
+---
+
+# Screens
+
+## Upload Screen
+
+Students upload:
+
+- lecture recording
+- lecture PDF
+- optional lecture title
+
+The application displays progress through:
+
+```
+Uploading
+      ↓
+Transcribing
+      ↓
+Parsing PDF
+      ↓
+Matching
+      ↓
+Ready for Review
+```
+
+---
+
+## Review Screen
+
+Three-panel interface.
+
+### Left Panel
+
+- PDF sections
+- speech count
+- note count
+
+### Centre Panel
+
+- section content
+- attached transcript chunks
+- student notes
+- confirm section
+
+### Right Panel
+
+- all transcript chunks
+- drag into any section
+- remove incorrect matches
+- replay audio
+
+---
+
+# User Workflow
+
+```
+Upload Audio
+        │
+        ▼
+Upload PDF
+        │
+        ▼
+Backend Processing
+        │
+        ▼
+Review Matches
+        │
+        ▼
+Move Chunks
+        │
+        ▼
+Add Notes
+        │
+        ▼
+Download Notes
+```
+
+---
+
+# Project Structure
+
+```text
+lecturemerger-ui/
+
+src/
+
+├── components/
+├── screens/
+├── services/
+├── hooks/
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+# Design
+
+The interface follows a minimal editor-style layout inspired by tools such as Linear.
+
+Design principles include:
+
+- minimal visual noise
+- keyboard-friendly workflow
+- dark theme
+- readable typography
+- clear confidence indicators
+- focus on content over decoration
+
+---
+
+# Confidence Scores
+
+Each transcript chunk displays its semantic matching confidence.
+
+| Colour | Meaning |
+|----------|---------|
+| Indigo | High confidence |
+| Amber | Medium confidence |
+| Red | Low confidence |
+
+Students can manually reassign any chunk regardless of confidence.
+
+---
+
+# Running Locally
+
+Clone the repository.
 
 ```bash
-git clone https://github.com/LolaVictoria/lecturmerge-ui.git
-cd lecturmerge-ui
+git clone https://github.com/LolaVictoria/lecturemerger-ui.git
+
+cd lecturemerger-ui
+```
+
+Install packages.
+
+```bash
 npm install
+```
+
+Run the development server.
+
+```bash
 npm run dev
 ```
 
-Requires the LectureMerge backend running at `http://127.0.0.1:8000`.
-See [lecturmerge-api](https://github.com/LolaVictoria/lecturemerger-api) for backend setup.
+The frontend expects the backend to be running locally at
 
-## Screens
+```
+http://127.0.0.1:8000
+```
 
-### Upload Screen
-- Audio file input (mp3, wav, m4a, webm, ogg)
-- PDF file input
-- Optional lecture title
-- Real-time status updates through the pipeline (uploading → transcribing → parsing → matching)
+---
 
-### Review Screen
-- Left sidebar: all PDF sections with speech/note counts
-- Center panel: active section with PDF text, matched speech chunks (playable, removable, draggable), student notes
-- Right panel: all transcript chunks, draggable to any section
-- Confidence score bar on each chunk (colour-coded: indigo = high, amber = medium, red = low)
-- Confirm button per section to track review progress
-- Download button generates merged HTML document
+# Backend
+
+Backend repository:
+
+https://github.com/LolaVictoria/lecturemerger-api
+
+---
+
+# Future Improvements
+
+- Authentication
+- User accounts
+- Collaborative editing
+- Search within notes
+- PDF preview
+- Responsive mobile layout
+- Dark/light theme toggle
+- Export to PDF
+- Keyboard shortcuts
+
+---
+
+# License
+
+MIT License.
